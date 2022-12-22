@@ -14,5 +14,4 @@ def print_triangle(triangle):
 
 
 if __name__ == "__main__":
-    n = (int(input("Donner un nombre: ")))
-    print_triangle(pascal_triangle(n))
+    print_triangle(pascal_triangle(5))
