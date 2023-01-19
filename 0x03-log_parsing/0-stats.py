@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
-def read()->[bool, bool, str]:
+
+def read() -> [bool, bool, str]:
     try:
         x = input()
         return [True, False, x]
     except KeyboardInterrupt:
         return [True, True, "error"]
+
 
 rep = True
 cpt = 0
@@ -14,7 +16,7 @@ dic = {}
 rep = True
 while (rep):
     rep, state_err, x = read()
-    if state_err == False:
+    if state_err is False:
         x = input()
         cpt += 1
         somme_file_size += int(x.split(' ')[-1])
