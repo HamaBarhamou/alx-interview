@@ -1,37 +1,41 @@
 #!/usr/bin/python3
+"""Log Parser"""
+import sys
 
 
-def read() -> [bool, bool, str]:
+if __name__ == '__main__':
+    file_size = [0]
+    status_codes = {200: 0, 301: 0, 400: 0, 401: 0,
+                    403: 0, 404: 0, 405: 0, 500: 0}
+
+    def print_stats():
+        """ Print statistics """
+        print('File size: {}'.format(file_size[0]))
+        for key in sorted(status_codes.keys()):
+            if status_codes[key]:
+                print('{}: {}'.format(key, status_codes[key]))
+
+    def parse_line(line):
+        """ Checks the line for matches """
+        try:
+            line = line[:-1]
+            word = line.split(' ')
+            file_size[0] += int(word[-1])
+            status_code = int(word[-2])
+            if status_code in status_codes:
+                status_codes[status_code] += 1
+        except BaseException:
+            pass
+
+    linenum = 1
     try:
-        x = input()
-        return [True, False, x]
+        for line in sys.stdin:
+            parse_line(line)
+            """ print after every 10 lines """
+            if linenum % 10 == 0:
+                print_stats()
+            linenum += 1
     except KeyboardInterrupt:
-        return [True, True, "error"]
-
-
-rep = True
-cpt = 0
-somme_file_size = 0
-dic = {}
-rep = True
-while (rep):
-    rep, state_err, x = read()
-    if state_err is False:
-        x = input()
-        cpt += 1
-        somme_file_size += int(x.split(' ')[-1])
-        if cpt == 10:
-            print('File size:', somme_file_size)
-            cpt = 0
-            somme_file_size = 0
-            for key, value in sorted(dic.items()):
-                print(key, ":", value)
-            dic = {}
-        else:
-            key = x.split(" ")[-2]
-            if key in dic:
-                dic[key] += 1
-            else:
-                dic[key] = 1
-    else:
-        print("hello on continue...")
+        print_stats()
+        raise
+    print_stats()
