@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
-The N queens puzzle is the challenge of placing 
-N non-attacking queens on an N×N chessboard.
+    The N queens puzzle is the challenge of placing
+    N non-attacking queens on an N×N chessboard.
 """
-
 import sys
 
 
@@ -32,6 +31,7 @@ def main():
         board[i] = aux[i - 1]
 
     return []
+
 
 if __name__ == '__main__':
     main()
